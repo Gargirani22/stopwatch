@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Stopwatch</title>
+    <link href="css/stpwatch.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="container">
+    <h1 class="title">StopWatch</h1>
+    <h1 id="timerLabel">00:00:00</h1>
+    <input type="button" class="myBtn start" onclick="start()" value="START" id="startBtn">
+    <input type="button" class="myBtn stop" onclick="stop()" value="STOP">
+    <input type="button" class="myBtn lap" onclick="laps()" value="LAP" id="lapBtn">
+    <input type="button" class="myBtn reset" onclick="reset()" value="RESET">
+    <input type="button" class="myBtn hist" onclick="history()" value="HISTORY" id="laphist">
+    <div>
+        <p id=lap></p>
+    </div>
+</div>
+<script src="js/stpwatch.js"></script>
+</body>
+</html>

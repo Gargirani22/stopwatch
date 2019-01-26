@@ -1,0 +1,44 @@
+body {
+    background-color: springgreen;
+}
+.container {
+    margin-top: 50px;
+    text-align: center;
+}
+#timerLabel {
+    margin: 50px 0px 50px 0px;
+    color: white;
+}
+#lap{
+    text-align: center;
+    
+}
+.myBtn {
+    width: 90px;
+    height: 50px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    margin-left: 20px;
+
+}
+.start{
+    background-color: green;
+}
+.stop{
+    background-color: red;
+}
+.lap{
+    background-color: yellow;
+    
+}
+.reset{
+    background-color: blue;
+}
+.hist{
+    background-color: coral;
+}
+.title, .myButton {
+    font-family: 'Berkshire Swash', cursive;
+    color: midnightblue;
+}
