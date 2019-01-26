@@ -22,6 +22,10 @@ body {
     margin-left: 20px;
 
 }
+.myBtn:hover {
+    background-color: wheat;
+  }
+
 .start{
     background-color: green;
 }
