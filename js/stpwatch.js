@@ -1,4 +1,4 @@
-var status = 0; // 0:stop and 1:running
+var status = 0; // status=0:stop and 1:running
 var time = 0;
 var i = 0;
 var startBtn = document.getElementById("startBtn");
@@ -32,30 +32,32 @@ function reset()
     startBtn.disabled = false;
 }
 
+function addhistorytolocal(lapval)
+{
+let hists= gethistoryfromlocal();
+hists.push(lapval);
+localStorage.setItem('lapvalue',JSON.stringify(hists));
+}
 
-//adding history to storage
-function addHistLocally(lapval) {
-    let hists = getHistFromLocal();
-    hists.push(lapval);
-    localStorage.setItem('history', JSON.stringify(hists));
-    console.log(" History Added!");
-  }
-  //getting history from storage
-function getHistFromLocal() {
-    let hists;
-    const histls = localStorage.getItem('history');
-    if (histls === null) {
-      hists = [];
-    } else {
-      hists = JSON.parse(histls);
-    }
-    return hists;
-  }
+function gethistoryfromlocal()
+{
+const histost=localStoragecontent.getItem('history');
+let hists;
+if(histost===null)
+{
+    hists=[]; 
+}
+else
+{
+    histost= JSON.parse(histost);
+}
+return hists;
+}
   
   //history
-  function lsonLoad(e) {
-  
-    historybtn.style.visibility = 'hidden';
+function historylap(e) {
+  console.log("hello from local storage");
+    hist.style.visibility = 'hidden';
   
     let hists = getHistFromLocal();
     const div = document.createElement('li');
@@ -70,7 +72,6 @@ function getHistFromLocal() {
         histarr.push(hists[i].slice(0, -1) + `"`);
       }
     }
-    //console.log(histarr);
   
     if (histarr.length >= 10) {
       for (var i = histarr.length - 10, j = 1; i < histarr.length, j <= 10; i++, j++) {
@@ -84,6 +85,9 @@ function getHistFromLocal() {
         const li = document.createElement('ol');
         li.textContent = k + "-" + hists[k];
         historyList.appendChild(li);
+
+        //add to local storage
+        addhistorytolocal();
   
       }
     }
