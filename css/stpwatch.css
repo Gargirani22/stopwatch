@@ -1,8 +1,8 @@
 body {
-    background-color: springgreen;
+    background-color:aquamarine;
 }
 .container {
-    margin-top: 50px;
+    margin-top: 60px;
     text-align: center;
 }
 #timerLabel {
@@ -11,7 +11,8 @@ body {
 }
 #lap{
     text-align: center;
-    
+    margin-top: 50px;
+    padding-top: 20px;
 }
 .myBtn {
     width: 90px;
@@ -23,7 +24,7 @@ body {
 
 }
 .myBtn:hover {
-    background-color: wheat;
+    background-color:wheat ;
   }
 
 .start{
