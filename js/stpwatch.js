@@ -3,31 +3,31 @@ var time = 0;
 var i = 0;
 var lapvalues=[];
 var hists= [];
+hists=gethistoryfromlocal();
 var startBtn = document.getElementById("startBtn");
 var timerLabel = document.getElementById('timerLabel');
 var hist=document.getElementById('history');
 
-hists=gethistoryfromlocal();
 function start()
 {
-    status = 1;
+    status = 1;         //timer running
     startBtn.disabled = true;
     timer();
 }
 
 function stop()
 {
-    status = 0;
+    status = 0;         //timer paused
     startBtn.disabled = false;
 }
 
 function laps()
 {   
     i++;
-    var x=("Lap" + i + " occurs at:" + timerLabel.innerHTML);
+    var x=("Lap" + i + " occurs at:" + timerLabel.innerHTML);   //to get the lap values
     lapvalues.push(x);
-    document.getElementById('lap').innerHTML = "";          //to get the lap values
-    lapvalues.forEach(function(lap) {
+    document.getElementById('lap').innerHTML = "";          
+    lapvalues.forEach(function(lap) {                       //to take all the lapvalues in arrays and save in localstorage
         var li=document.createElement("li");
         li.textContent=lap;
         document.getElementById("lap").appendChild(li);
@@ -50,7 +50,7 @@ function reset()
 //to show the lap history
 function histories(){
    // console.log("history button working");
-    //gethistoryfromlocal();
+    //displayinghistoryfromlocal();
     lapvalues.forEach(function(lap) {
         var li=document.createElement("li");
         li.textContent=lap;
@@ -62,27 +62,24 @@ function histories(){
 function addhistorytolocal(lapval)
 {
     console.log("history added");
-//hists= gethistoryfromlocal();
-hists.push(lapval);
-localStorage.setItem('lapvalue',JSON.stringify(hists));
+    hists.push(lapval);
+    localStorage.setItem('lapvalue',JSON.stringify(hists));
 }
 
 //retreiving lapvalues from local storage
 function gethistoryfromlocal()
+{   
+    const histost=localStorage.getItem('hists');
+    if(histost===null)
 {
-const histost=localStorage.getItem('hists');
-let hists;
-if(histost===null)
-{
-    hists=[]; 
+        hists=[]; 
 }
 else
 {
-    histost= JSON.parse(histost);
+        histost= JSON.parse(histost);   //converting to javascript 
 }
-return hists;
+    return hists;
 }
-
 
 //to execute the timer
 function timer(){
