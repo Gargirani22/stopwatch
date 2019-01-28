@@ -1,11 +1,13 @@
 var status = 0; // status=0:stop and 1:running
 var time = 0;
 var i = 0;
-var lapvalues;
+var lapvalues=[];
+var hists= [];
 var startBtn = document.getElementById("startBtn");
 var timerLabel = document.getElementById('timerLabel');
 var hist=document.getElementById('history');
 
+hists=gethistoryfromlocal();
 function start()
 {
     status = 1;
@@ -22,8 +24,15 @@ function stop()
 function laps()
 {   
     i++;
-    lapvalues = ("Lap" + i + " occurs at:" + timerLabel.innerHTML);         //to get the lap values
-    document.getElementById('lap').innerHTML += lapvalues + "</br>";
+    var x=("Lap" + i + " occurs at:" + timerLabel.innerHTML);
+    lapvalues.push(x);
+    document.getElementById('lap').innerHTML = "";          //to get the lap values
+    lapvalues.forEach(function(lap) {
+        var li=document.createElement("li");
+        li.textContent=lap;
+        document.getElementById("lap").appendChild(li);
+    });
+    
 }
 
 function reset()
@@ -33,30 +42,35 @@ function reset()
     timerLabel.innerHTML = '00:00:00';                  //to set the timer to 00:00:00
     startBtn.disabled = false;
     document.getElementById('lap').innerHTML = null;    //to clear lap values
+
     //adding lap history to local
     addhistorytolocal(lapvalues); 
-
 }
 
+//to show the lap history
 function histories(){
-    console.log("history button working");
-
+   // console.log("history button working");
     //gethistoryfromlocal();
-    historylap();
-    
+    lapvalues.forEach(function(lap) {
+        var li=document.createElement("li");
+        li.textContent=lap;
+        document.getElementById("lap").appendChild(li);
+    });
 }
 
+//add lap values in local storage
 function addhistorytolocal(lapval)
 {
     console.log("history added");
-let hists= gethistoryfromlocal();
+//hists= gethistoryfromlocal();
 hists.push(lapval);
 localStorage.setItem('lapvalue',JSON.stringify(hists));
 }
 
+//retreiving lapvalues from local storage
 function gethistoryfromlocal()
 {
-const histost=localStorage.getItem('history');
+const histost=localStorage.getItem('hists');
 let hists;
 if(histost===null)
 {
@@ -69,41 +83,6 @@ else
 return hists;
 }
 
-  
-  //history
-function historylap(e) {
- // console.log("hello from local storage");
-   // hist.style.visibility = 'hidden';
-  
-    let hists = gethistoryfromlocal();
-    const div = document.createElement('li');
-    
-    let histarr = [];
-  
-    for (let i = 0; i < hists.length; i++) {
-      if (hists[i] === `"0:0:0:0"` || hists[i] === `"0:0:0:1"`) {
-        
-        continue;
-      } else {
-        histarr.push(hists[i].slice(0, -1) + `"`);
-      }
-    };
-
-    if (histarr.length >= 10) {
-      for (var i = histarr.length - 10, j = 1; i < histarr.length, j <= 10; i++, j++) {
-        const li = document.createElement('ol');
-        li.textContent = j + "-" + hists[i];
-        historyList.appendChild(li);
-  
-      }
-    } else {
-      for (var k = 0; k < histarr.length; k++) {
-        const li = document.createElement('ol');
-        li.textContent = k + "-" + hists[k];
-        historyList.appendChild(li);
-      }
-    }
-}
 
 //to execute the timer
 function timer(){
@@ -119,7 +98,7 @@ function timer(){
             if (mSec < 10) mSec = "0" + mSec;
             timerLabel.innerHTML = min + ":" + sec + ":" + mSec;        
             timer();
-        }, 10);
+        }, 10); //ms
     }
 }
 document.onkeydown = function(event) { 
