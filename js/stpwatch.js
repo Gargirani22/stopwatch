@@ -8,6 +8,7 @@ var startBtn = document.getElementById("startBtn");
 var timerLabel = document.getElementById('timerLabel');
 var hist=document.getElementById('history');
 
+
 function start()
 {
     status = 1;         //timer running
