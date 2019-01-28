@@ -1,8 +1,10 @@
 var status = 0; // status=0:stop and 1:running
 var time = 0;
 var i = 0;
+var lapvalues;
 var startBtn = document.getElementById("startBtn");
 var timerLabel = document.getElementById('timerLabel');
+var hist=document.getElementById('history');
 
 function start()
 {
@@ -20,7 +22,7 @@ function stop()
 function laps()
 {   
     i++;
-    let lapvalues = ("Lap" + i + " occurs at:" + timerLabel.innerHTML); 
+    lapvalues = ("Lap" + i + " occurs at:" + timerLabel.innerHTML);         //to get the lap values
     document.getElementById('lap').innerHTML += lapvalues + "</br>";
 }
 
@@ -28,12 +30,25 @@ function reset()
 {
     status = 0;
     time = 0;
-    timerLabel.innerHTML = '00:00:00';
+    timerLabel.innerHTML = '00:00:00';                  //to set the timer to 00:00:00
     startBtn.disabled = false;
+    document.getElementById('lap').innerHTML = null;    //to clear lap values
+    //adding lap history to local
+    addhistorytolocal(lapvalues); 
+
+}
+
+function histories(){
+    console.log("history button working");
+
+    //gethistoryfromlocal();
+    historylap();
+    
 }
 
 function addhistorytolocal(lapval)
 {
+    console.log("history added");
 let hists= gethistoryfromlocal();
 hists.push(lapval);
 localStorage.setItem('lapvalue',JSON.stringify(hists));
@@ -41,7 +56,7 @@ localStorage.setItem('lapvalue',JSON.stringify(hists));
 
 function gethistoryfromlocal()
 {
-const histost=localStoragecontent.getItem('history');
+const histost=localStorage.getItem('history');
 let hists;
 if(histost===null)
 {
@@ -53,26 +68,27 @@ else
 }
 return hists;
 }
+
   
   //history
 function historylap(e) {
-  console.log("hello from local storage");
-    hist.style.visibility = 'hidden';
+ // console.log("hello from local storage");
+   // hist.style.visibility = 'hidden';
   
-    let hists = getHistFromLocal();
+    let hists = gethistoryfromlocal();
     const div = document.createElement('li');
-    //let hm = hists.toString();
+    
     let histarr = [];
   
     for (let i = 0; i < hists.length; i++) {
       if (hists[i] === `"0:0:0:0"` || hists[i] === `"0:0:0:1"`) {
-        //   alert("start first!");
+        
         continue;
       } else {
         histarr.push(hists[i].slice(0, -1) + `"`);
       }
-    }
-  
+    };
+
     if (histarr.length >= 10) {
       for (var i = histarr.length - 10, j = 1; i < histarr.length, j <= 10; i++, j++) {
         const li = document.createElement('ol');
@@ -85,13 +101,10 @@ function historylap(e) {
         const li = document.createElement('ol');
         li.textContent = k + "-" + hists[k];
         historyList.appendChild(li);
-
-        //add to local storage
-        addhistorytolocal();
-  
       }
     }
 }
+
 //to execute the timer
 function timer(){
     if (status == 1) {
