@@ -9,12 +9,12 @@
 <body>
 <div class="container">
     <h1 class="title">StopWatch</h1>
-    <h1 id="timerLabel">00:00:00</h1>
+    <p id="timerLabel">00:00:00</p>
     <input type="button" class="myBtn start" onclick="start()" value="START" id="startBtn">
     <input type="button" class="myBtn stop" onclick="stop()" value="STOP">
     <input type="button" class="myBtn lap" onclick="laps()" value="LAP" id="lapBtn">
     <input type="button" class="myBtn reset" onclick="reset()" value="RESET">
-    <input type="button" class="myBtn hist" value="HISTORY">
+    <input type="button" class="myBtn hist" onclick="histories()" value="HISTORY" id="history">
     <div>
         <p id=lap></p>
     </div>
